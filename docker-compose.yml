@@ -1,0 +1,41 @@
+---
+version: "3"
+services:
+  nginx:
+    container_name: nginx
+    image: nginx:stable
+    restart: always
+    volumes:
+      - ./nginx.conf:/etc/nginx/conf.d/default.conf:ro
+    ports:
+      - "80:80"
+    networks:
+      - net
+
+  test-server:
+    container_name: test-server
+    image: nginx:stable
+    volumes:
+      - ./test-server.html:/usr/share/nginx/html/index.html:ro
+    networks:
+      - net
+
+  staging-server:
+    container_name: staging-server
+    image: nginx:stable
+    volumes:
+      - ./staging-server.html:/usr/share/nginx/html/index.html:ro
+    networks:
+      - net
+
+  pro-server:
+    container_name: pro-server
+    image: nginx:stable
+    volumes:
+      - ./pro-server.html:/usr/share/nginx/html/index.html:ro
+    networks:
+      - net
+
+networks:
+  net:
+...
